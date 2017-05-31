@@ -82,20 +82,38 @@
 
 
 -(void)setStartAngleText:(NSString *)startAngleText {
-    _startAngleText = startAngleText;
     
+    _startAngleText = [self addDW:startAngleText];
     
-    self.leftLbl.text = startAngleText;
+    self.leftLbl.attributedText = [self textAttributedFromString:_startAngleText];
 }
 
+
+
+
+
 -(void)setEndAngleText:(NSString *)endAngleText {
-    _endAngleText = endAngleText;
+    _endAngleText = [self addDW:endAngleText];
     
-    
-    self.rightLbl.text = endAngleText;
-    
-    
-    
+    self.rightLbl.attributedText = [self textAttributedFromString:_endAngleText];
+}
+
+
+-(NSString*)addDW:(NSString*)text {
+    if (![text containsString:@"o"]) {
+        text = [text stringByAppendingString:@"o"];
+    }
+    return text;
+}
+
+
+-(NSMutableAttributedString*)textAttributedFromString:(NSString *)text {
+    NSInteger length = [text length];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text];
+    [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12] range:NSMakeRange(0, length - 1)];
+    [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:8] range:NSMakeRange(length - 1, 1)];
+    [str addAttribute:NSBaselineOffsetAttributeName value:@8 range:NSMakeRange(length - 1, 1)];
+    return str;
 }
 
 

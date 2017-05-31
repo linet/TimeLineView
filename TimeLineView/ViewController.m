@@ -22,6 +22,26 @@
 
 @implementation ViewController
 
+
+-(UILabel *)dateLbl {
+    if (!_dateLbl) {
+        NSInteger width = 100;
+        NSInteger height = 50;
+        _dateLbl = [UILabel new];
+        _dateLbl.backgroundColor = [UIColor whiteColor];
+        _dateLbl.textAlignment = NSTextAlignmentCenter;
+        _dateLbl.textColor = [UIColor redColor];
+        _dateLbl.layer.masksToBounds = YES;
+        _dateLbl.layer.cornerRadius = 25;
+        _dateLbl.frame = CGRectMake((self.view.frame.size.width - width) / 2.0f, 50, width, height);
+        [self.view addSubview:_dateLbl];
+    }
+    return _dateLbl;
+}
+
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -47,26 +67,12 @@
     self.pickerView.beginTime = timeInterval;
     
     NSInteger time = [[NSDate dateWithTimeIntervalSinceNow:0] timeIntervalSince1970];
+    
+    self.todayString = [self stringFromDate:time];
     self.pickerView.endTime = time;
     
     [self.pickerView reloadData];
     [self.pickerView selectTime:time animated:NO];
-    
-    
-    NSInteger width = 100;
-    NSInteger height = 50;
-    self.dateLbl = [UILabel new];
-    self.dateLbl.backgroundColor = [UIColor whiteColor];
-    self.dateLbl.textAlignment = NSTextAlignmentCenter;
-    self.dateLbl.textColor = [UIColor redColor];
-    self.dateLbl.layer.masksToBounds = YES;
-    self.dateLbl.layer.cornerRadius = 25;
-    self.dateLbl.frame = CGRectMake((self.view.frame.size.width - width) / 2.0f, 50, width, height);
-    [self.view addSubview:self.dateLbl];
-    
-    
-    self.todayString = [self stringFromDate:time];
-    
     
     
     self.view.backgroundColor = [UIColor grayColor];
